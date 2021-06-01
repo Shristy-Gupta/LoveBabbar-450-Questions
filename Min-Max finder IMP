@@ -1,0 +1,76 @@
+#include <iostream>
+#include <utility>
+using namespace std;
+/* Utility function to print an array */
+void printArray(int arr[], int size, string message)
+{
+    cout<<message<<": ";
+   for (int i = 0; i < size; i++)
+   cout << arr[i] << " ";
+ 
+   cout << endl;
+}
+pair<int,int> tournament_minmax(int* arr, int start, int end){
+    pair<int,int> ans;
+    //If there is only one element
+    if(start==end){
+        //return that element
+        ans.first=arr[start];
+        ans.second=arr[start];
+        return ans;
+    }
+    if(start+1==end){
+        ans.first=min(arr[start],arr[end]);
+        ans.second=max(arr[start],arr[end]);
+        return ans;
+    }
+    //Now divide the element in two halves and then 
+    //Make recusrive call on left and right 
+    int mid=(start+end)/2;
+    pair<int,int> left=tournament_minmax(arr,start,mid);
+    pair<int,int> right=tournament_minmax(arr,mid+1,end);
+    
+    ans.first=min(left.first,right.first);
+    ans.second=max(left.second,right.second);
+    return ans;
+}
+pair<int,int> comparepair(int* arr,int size){
+    pair<int,int> ans;
+    int startindex;
+    //If array size is even them between first two elements choose min and max
+    //Else assign the first element as both min and max;
+    if(size%2==0){
+        ans.first=min(arr[0],arr[1]);
+        ans.second=max(arr[0],arr[1]);
+        startindex=2;
+    }
+    else{
+        ans.first=arr[0];
+        ans.second=arr[0];
+        startindex=1;
+    }
+    for(int i=startindex;i<size;i+=2){
+        int minnum=min(arr[i],arr[i+1]);
+        int maxnum=max(arr[i],arr[i+1]);
+        ans.first=min(ans.first,minnum);
+        ans.second=max(ans.second,maxnum);
+    }
+    return ans;
+}
+int main() {
+    /*String--Maximum and minimum of an array using minimum number of comparisons This question has to be done with Tournament and compare in paris */
+    int arr[] = {1, 2, 3, 4, 5, 6};
+
+    //Tournament Method:
+    pair<int,int> minmax;
+    minmax=tournament_minmax(arr,0,5);
+    cout<<minmax.first<<endl;
+    cout<<minmax.second<<endl;
+    
+    
+    //Compare in pair method
+    minmax=comparepair(arr,6);
+    cout<<minmax.first<<endl;
+    cout<<minmax.second<<endl;
+    return 0;
+}
