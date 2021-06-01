@@ -1,0 +1,38 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+/* Utility function to print an array */
+void printArray(int arr[], int size, string message)
+{
+    cout<<message<<": ";
+   for (int i = 0; i < size; i++)
+   cout << arr[i] << " ";
+ 
+   cout << endl;
+}
+void reverse(int* arr, int start, int end){
+    if(start>end){
+        return;
+    }
+    swap(arr[start],arr[end]);
+    reverse(arr,start+1,end-1);
+    
+}
+
+int main() {
+    //String--Write a program to reverse an array or string
+    int arr[] = {1, 2, 3, 4, 5, 6};
+    printArray(arr, 6, "original");
+    //Iteration
+    int startindex=0,endindex=5;
+    while(startindex<endindex){
+        swap(arr[startindex],arr[endindex]);
+        startindex++;
+        endindex--;
+    }
+     printArray(arr, 6,"iterative");
+    //Recursive 
+    reverse(arr,0,5);
+    printArray(arr, 6,"recursive");
+    return 0;
+}
