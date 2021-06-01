@@ -1,0 +1,56 @@
+class Solution{
+    public:
+    // arr : given array
+    // l : starting index of the array i.e 0
+    // r : ending index of the array i.e size-1
+    // k : find kth smallest element and return using this function
+    /*
+    if left = right
+      return list[left]
+
+   Select a pivotIndex between left and right
+
+   pivotIndex := partition(list, left, right, 
+                                  pivotIndex)
+   if k = pivotIndex
+      return list[k]
+   else if k < pivotIndex
+      right := pivotIndex - 1
+   else
+      left := pivotIndex + 1 
+    */
+    
+    int partition(int arr[], int left, int right){
+        int pivot=arr[right], i=left;
+        for(int j=left;j<right;j++){
+            if(arr[j]<=pivot){
+                swap(arr[i],arr[j]);
+                i++;
+            }
+        }
+        swap(arr[i],arr[right]);
+        return i;
+        
+    }
+    int kthSmallest(int arr[], int l, int r, int k) {
+        if (k > 0 && k <= r - l + 1) {
+                if(l==r){
+                    return arr[l];
+                }
+                int partition_Index=partition(arr,l,r);
+                if(k-1==partition_Index-l){
+                    return arr[partition_Index];
+                }
+                else if(k-1<partition_Index-l){
+                    //left subarray
+                    return kthSmallest(arr,l,partition_Index-1,k);
+                }
+                else{
+                    //right subarray
+                    return kthSmallest(arr,partition_Index+1,r,k - (partition_Index - l) - 1);
+                }
+                
+                }
+        return INT_MAX;
+    }
+};
