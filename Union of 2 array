@@ -1,0 +1,25 @@
+class Solution{
+    public:
+    //Function to return the count of number of elements in union of two arrays.
+    int doUnion(int a[], int n, int b[], int m)  {
+        set<int> unique;
+        for(int i=0;i<n;i++){
+            unique.insert(a[i]);
+        }
+        for(int i=0;i<m;i++){
+            unique.insert(b[i]);
+        }
+        return unique.size();
+        
+    }
+    int doIntersection(int a[], int n, int b[], int m)  {
+        set<int> unique;
+        for(int i=0;i<n;i++){
+            unique.insert(a[i]);
+        }
+        for(int i=0;i<m;i++){
+            unique.insert(b[i]);
+        }
+        return unique.size()-n-m;
+        
+    }
