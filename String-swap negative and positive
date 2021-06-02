@@ -1,0 +1,42 @@
+#include <iostream>
+#include <utility>
+using namespace std;
+/* Utility function to print an array */
+void printArray(int arr[], int size, string message)
+{
+    cout<<message<<": ";
+   for (int i = 0; i < size; i++)
+   cout << arr[i] << " ";
+ 
+   cout << endl;
+}
+void rearrange(int arr[], int size){
+    int negative=0, positive=size-1;
+    while(negative<=positive){
+        if(arr[negative]>0){
+            swap(arr[negative],arr[positive]);
+            positive--;
+        }
+        else if(arr[positive]<0){
+            swap(arr[negative],arr[positive]);
+            negative++;
+        }
+        if(arr[negative]<0){
+            negative++;
+        }
+        if(arr[positive]>0){
+            positive--;
+        }
+        
+    }
+    
+}
+int main() {
+    
+    int arr[] = {-12, 11, -13, -5, 6, -7, 5, -3, 11};
+//Two pointer approach
+     rearrange(arr,9);
+     printArray(arr,9,"Two pointer approach");
+
+    return 0;
+}
