@@ -1,0 +1,36 @@
+/* int count0=0,count1=0,count2=0;
+  for(int i=0;i<n;i++){
+      if(a[i]==0){
+          count0++;
+      }
+      if(a[i]==1){
+          count1++;
+      }
+      if(a[i]==2){
+          count2++;
+      }
+  }
+ int i=0;
+ while(count0!=0){
+     a[i++]=0;
+     count0--;
+ }
+ while(count1!=0){
+     a[i++]=1;
+     count1--;
+ }
+ while(count2!=0){
+     a[i++]=2;
+     count2--;
+ }
+ */
+ //DUTCH NATIONAL FLAG PROBLEM O(n)
+ int low=0,high=n-1,mid=0;
+ 
+ while(mid<high){
+    swich(a[mid]){
+        case 0:
+            //Switch a[low] and a[high]
+            
+    } 
+ }
