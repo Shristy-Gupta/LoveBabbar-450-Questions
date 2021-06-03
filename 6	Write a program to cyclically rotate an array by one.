@@ -1,0 +1,24 @@
+/*
+Following are steps.
+1) Store last element in a variable say x.
+2) Shift all elements one position ahead.
+3) Replace first element of array with x.
+*/
+
+void rotate(int arr[], int n)
+{
+    int end=arr[n-1];
+    for(int i=n-1;i>0;i--){
+        arr[i]=arr[i-1];
+    }
+    arr[0]=end;
+}
+// Two pointer approach
+void rotate(int arr[], int n)
+{
+    int i = 0, j = n-1; // i and j pointing to first and last element respectively
+      while(i != j){
+      swap(arr[i], arr[j]);
+      i++;
+    }
+}
