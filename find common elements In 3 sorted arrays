@@ -1,0 +1,39 @@
+
+class Solution
+{
+public:    
+       vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
+        {
+            vector<int> ans;
+            int i=0,j=0,k=0,prev=INT_MIN;
+            while(i<n1 && j<n2 && k<n3){
+                int a=A[i],b=B[j],c=C[k];
+                if(a==b && b==c && c==a){
+                    //because element are sorted
+                    if(prev!=a){
+                       ans.push_back(a);
+                    }
+                    prev=a;
+                    i++;
+                    j++;
+                    k++;
+                }
+                else{
+                    int val=min(a,min(b,c));
+                    if(val==a){
+                        i++;
+                    }
+                    else if(val==b){
+                       j++; 
+                    }
+                    else if(val==c){
+                        k++;
+                    }
+                   
+                }
+            }
+            
+            return ans;
+        }
+
+};
