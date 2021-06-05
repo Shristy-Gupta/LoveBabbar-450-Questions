@@ -1,32 +1,4 @@
 class Solution {
-    int find_maxProfit(bool buy,int pos,vector<int> prices,int n,vector<int> &dp_buy,vector<int> &dp_sell)
-    {
-        if(pos>=n || (buy==true && pos==n-1))
-            return 0;
-        else if(buy && dp_buy[pos]>0)
-            return dp_buy[pos];
-        else if(!buy && dp_sell[pos]>0)
-            return dp_sell[pos];
-        
-        int profit = 0;
-        //We have 3 options: Buy,Sell,Skip (current share)
-        int skip = find_maxProfit(buy,pos+1,prices,n,dp_buy,dp_sell);  //Skip case
-        if(buy)
-        {
-            profit = -prices[pos] + find_maxProfit(false,pos+1,prices,n,dp_buy,dp_sell);
-            dp_buy[pos] = max(skip,profit);
-            return dp_buy[pos];
-        }
-        else
-        {
-            profit = prices[pos] + find_maxProfit(true,pos+1,prices,n,dp_buy,dp_sell);
-            dp_sell[pos] = max(skip,profit);
-            return dp_sell[pos];
-        }
-        
-        //Return by taking max of all 3 cases
-        return max(profit,skip);
-    }
 public:
     int maxProfit(vector<int>& prices) {
         
@@ -38,12 +10,18 @@ public:
             return 0;
         else if(n==2)
             return max(0,prices[1]-prices[0]);
-        
-        vector<int> dp_buy(n,0);
-        vector<int> dp_sell(n,0);
-        //vector<int> dp(n,0);
-        
-        return find_maxProfit(true,0,prices,n,dp_buy,dp_sell);
+        int min=INT_MAX;
+        int max=0;
+        for(int i=0;i<n;i++){
+            if(prices[i]<min){
+                min=prices[i];
+            }
+            else if(prices[i]-min>max){
+                max=prices[i]-min;
+            }
+        }
+        return max;
+
     }
 };
  
