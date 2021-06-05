@@ -37,8 +37,8 @@ void rearrange(int arr[], int size){
     negative=0;
     
     //Positive numbers should be in even position and negative numbers should be in odd positions
-    while(positive<size){
-        if(negative%2==0){
+    while(positive<size &&negative<size){
+        if(negative%2==0 && positive<size){
             swap(arr[negative],arr[positive]);
             negative++;
             positive++;
@@ -51,10 +51,10 @@ void rearrange(int arr[], int size){
 }
 int main() {
     
-    int arr[] = {-12, 11, -13, -5, 6, -7, 5, -3, 11};
-
-     rearrange(arr,9);
-     printArray(arr,9,"ans");
+    //int arr[] = {-12, 11, -13, -5, 6, -7, 5, -3, 11};
+    int arr[]={2, 3, -4, -1, 6, -9, 5, 11, 12, 13};
+     rearrange(arr,10);
+     printArray(arr,10,"ans");
      
 
     return 0;
