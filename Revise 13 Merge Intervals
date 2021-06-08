@@ -1,0 +1,35 @@
+//Revise IMP Operator overload
+class Solution {
+public:
+    //THIS IS A STANDARD WAY OF WRITING A COMPARATOR FUNCTION IN C++
+    struct comparator{
+        public:
+        bool operator()(vector<int>&v1,vector<int>&v2){
+            return v1[0]<v2[0];
+        }
+    };
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> v;
+        sort(intervals.begin(),intervals.end(),comparator());
+        //First element inserted
+        v.push_back(intervals[0]);
+        for(int i=1,j=0;i<intervals.size();i++){
+            if(v[j][1]>=intervals[i][0]){
+                //do not merge here
+                if(v[j][1]>=intervals[i][1]){
+                    continue;
+                }
+                if(v[j][1]<intervals[i][1]){
+                    v[j].pop_back();
+                    v[j].push_back(intervals[i][1]);
+                }
+            }
+            else{
+                v.push_back(intervals[i]);
+                j++;
+            }
+        }
+        return v;
+        
+    }
+};
