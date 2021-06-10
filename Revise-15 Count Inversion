@@ -1,0 +1,60 @@
+  class Solution{ 
+   //https://www.youtube.com/watch?v=owZhw-A0yWE
+  public:
+  // REVISE: MEDIUM Difficulty Question
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array with the help of Merge Sort.
+    long long int merge(long long arr[],long long temp[],long long left, long long mid, long long right){
+        long long i,j,k;
+        long long int inv_count=0;
+        i=left,j=mid,k=left;
+        while ((i<=mid-1) && (j<=right)){
+            if(arr[i]<=arr[j]){
+                temp[k++]=arr[i++];
+            }
+            else{
+                temp[k++]=arr[j++];
+                inv_count+=(mid-i);
+            }
+        }
+        while(i<=mid-1){
+            temp[k++]=arr[i++];
+        }
+        while(j<=right){
+            temp[k++]=arr[j++];
+        }
+        //copy the merged element in the original array
+        for(i=left;i<=right;i++){
+            arr[i]=temp[i];
+        }
+       return inv_count;
+        
+    }
+    
+    long long int mergesort(long long arr[],long long temp[],
+    long long N, long long left,long long right){
+        //1)recurstion
+        //2)Count inversions
+        //3)Merge
+        long long mid;
+        long long int inv_count=0;
+        if(right>left){
+            mid=(right+left)/2;
+            inv_count += mergesort(arr,temp,N,left,mid);
+            inv_count += mergesort(arr,temp,N,mid+1,right);
+            inv_count += merge(arr,temp,left,mid+1,right);
+        }
+
+        return inv_count;
+    }
+    long long int inversionCount(long long arr[], long long N)
+    {
+        if(N<=1){
+            return 0;
+        }
+        long long temp[N];
+        return mergesort(arr,temp,N,0,N-1);
+    }
+
+};
