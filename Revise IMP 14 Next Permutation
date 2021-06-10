@@ -2,25 +2,24 @@
 //https://youtu.be/LuLCLgMElus
 class Solution {
 public:
-    void reverse(vector<int>& nums, int i, int j){
-        while(i<j){
-            swap(nums[i++],nums[j--]);
-        }
-    }
+
     void nextPermutation(vector<int>& nums) {
         if(nums.size()<=1){
             return;
         }
         int len=nums.size();
         int i=len-2;
+        //first breakpoint
         while(i>=0 && nums[i]>=nums[i+1])i--;
+        if(i<0){
+           reverse(nums.begin(),nums.end()); 
+        }
         if(i>=0){
             int j=len-1;
             while(nums[j]<=nums[i])j--;
             swap(nums[i],nums[j]);
+            reverse(nums.begin()+i+1,nums.end());
         }
-        reverse(nums, i+1,len-1);
-        //reverse(nums.begin()+i+1,nums.begin()+len-1);
         
     }
 };
