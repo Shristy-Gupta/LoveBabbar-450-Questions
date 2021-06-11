@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<int> multiply(vector<int>& fact,long long int N){
+        long long int n=fact.size();
+        long long int x,mul,digit,carry=0;
+        stack<int> stk;
+        for(int i=n-1;i>=0;i--){
+            x=fact[i];
+            mul=(x*N)+carry;
+            digit=mul%10;
+            carry=mul/10;
+            stk.push(digit);
+            
+        }
+        if(carry<10){
+        stk.push(carry);
+        }
+        else{
+            while(carry){
+                digit=carry%10;
+                carry=carry/10;
+                stk.push(digit);
+            }
+        }
+        vector<int> ans;
+       
+                while(!stk.empty()){
+                    ans.push_back(stk.top());
+                    stk.pop();
+                }
+        return ans;
+        
+    }
+    vector<int> factorial(int N){
+        vector<vector<int>> vect{
+          {1},{1},{2},{6},{2,4},{1,2,0},{7,2,0},{5,0,4,0},{4,0,3,2,0},
+          {3,6,2,8,8,0},{3,6,2,8,8,0,0}
+        };
+        if(N<=10){
+            return vect[N];
+        }
+        else{
+            vector<int> ans=vect[10];
+            for(int i=11;i<=N;i++){
+                ans=multiply(ans,i);
+            }
+            return ans;
+        }
+    }
+};
+
+
+
