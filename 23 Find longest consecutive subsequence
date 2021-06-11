@@ -1,0 +1,55 @@
+
+
+ // } Driver Code Ends
+class Solution{
+#include<unordered_map>;
+  
+  public:
+    // arr[] : the input array
+    // N : size of the array arr[]
+    
+    //Function to return length of longest subsequence of consecutive integers.
+    int findLongestConseqSubseq(int arr[], int N)
+    {
+      // Use of hashmap 
+      unordered_map<int,int> fre;
+      for(int i=0;i<N;i++){
+          fre[arr[i]]++;
+      }
+      int count=0;
+      //traverse the array
+      for(int i=0;i<N;i++){
+          if(fre[arr[i]-1]>0){
+              continue;
+          }
+          else{
+             int internalcount=1, index=i, num=arr[i]+1;
+             while(fre[num]>0){
+                 internalcount++;
+                 num++;
+             }
+             count=max(count,internalcount);
+          }
+      }
+      return count;
+    }
+};
+
+// { Driver Code Starts.
+ 
+// Driver program
+int main()
+{
+ int  t,n,i,a[100001];
+ cin>>t;
+ while(t--)
+ {
+  cin>>n;
+  for(i=0;i<n;i++)
+  cin>>a[i];
+  Solution obj;
+  cout<<obj.findLongestConseqSubseq(a, n)<<endl;
+ }
+      
+    return 0;
+}  // } Driver Code Ends
