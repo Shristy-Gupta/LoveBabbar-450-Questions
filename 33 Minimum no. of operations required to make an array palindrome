@@ -1,0 +1,40 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+
+/*
+If arr[i] == arr[j], then there is no need to do any merging operations at index i or index j. Our answer in this case will be f(i+1, j-1).
+Else, we need to do merging operations. Following cases arise.
+If arr[i] > arr[j], then we should do merging operation at index j. We merge index j-1 and j, and update arr[j-1] = arr[j-1] + arr[j]. Our answer in this case will be 1 + f(i, j-1).
+For the case when arr[i] < arr[j], update arr[i+1] = arr[i+1] + arr[i]. Our answer in this case will be 1 + f(i+1, j).
+Our answer will be f(0, n-1), where n is the size of array arr[].
+
+*/
+int findMinOps(int arr[],int n){
+    int start=0,end=n-1;
+    int ans=0;
+    while(start<end){
+        if(arr[start]==arr[end]){
+            start++;
+            end--;
+        }
+        else if(arr[start]<arr[end]){
+            arr[start+1]=arr[start]+arr[start+1];
+            start++;
+            ans++;
+        }
+        else if(arr[start]>arr[end]){
+            arr[end-1]=arr[end]+arr[end-1];
+            end--;
+            ans++;
+        }
+    }
+    return ans;
+}
+int main() {
+    int arr[]={11, 14, 15, 99};
+    int n=4;
+    cout<<findMinOps(arr,n)<<endl;
+
+    return 0;
+}
