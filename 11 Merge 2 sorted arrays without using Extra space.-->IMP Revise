@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+ // } Driver Code Ends
+//User function template for C++
+#include <cmath>
+//https://youtu.be/hVl2b3bLzBw
+//gap--> https://www.geeksforgeeks.org/efficiently-merging-two-sorted-arrays-with-o1-extra-space/
+class Solution{
+public:
+    int calgap(int gap){
+        if(gap<=1){
+            return 0;
+        }
+        gap=(gap/2)+(gap%2);
+        return gap;
+    }
+	void merge(int arr1[], int arr2[], int n, int m) {
+	    //GAP method
+	    int gap=calgap(n+m);
+	    int start1=0,start2=start1+gap;
+	    while(gap){
+	      if(start2<m+n){
+	        if(start1<n && start2<n){
+	            if(arr1[start1]>arr1[start2]){
+	                //swap
+	                swap(arr1[start1],arr1[start2]);
+	                }
+	            }
+    	        else if(start1<n && start2-n<m){
+    	            if(arr1[start1]>arr2[start2-n]){
+    	                //swap
+    	                swap(arr1[start1],arr2[start2-n]);
+    	            }
+    	        }
+    	        else if(start1-n<m && start2-n<m){
+    	           if(arr2[start1-n]>arr2[start2-n]){
+    	                //swap
+    	                swap(arr2[start1-n],arr2[start2-n]);
+    	            } 
+    	        }
+	                start1++; start2++;
+	                
+	            }
+        	    else{
+        	        gap=calgap(gap);
+        	        start1=0;
+        	        start2=start1+gap;
+        	    }
+	    }
+	   
+	}
+};
+
+// { Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m, i;
+        cin >> n >> m;
+        int arr1[n], arr2[m];
+        for (i = 0; i < n; i++) {
+            cin >> arr1[i];
+        }
+        for (i = 0; i < m; i++) {
+            cin >> arr2[i];
+        }
+        Solution ob;
+        ob.merge(arr1, arr2, n, m);
+        for (i = 0; i < n; i++) {
+            cout << arr1[i] << " ";
+        }
+        for (i = 0; i < m; i++) {
+            cout << arr2[i] << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}  // } Driver Code Ends
