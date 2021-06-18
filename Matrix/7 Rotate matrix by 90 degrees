@@ -1,0 +1,34 @@
+//https://www.geeksforgeeks.org/rotate-a-matrix-by-90-degree-in-clockwise-direction-without-using-any-extra-space/
+class Solution {
+public:
+    void transpose(vector<vector<int>>& matrix, int n){
+      for(int i=0;i<=n;i++){
+          for(int j=0;j<=n;j++){
+              if(i<=j){
+             // cout<<i<<j<<endl;    
+              swap(matrix[i][j],matrix[j][i]);
+              }    
+
+          }
+      }   
+    }
+    void rotatehor(vector<vector<int>>& matrix, int n){
+        for(int i=0;i<=n;i++){
+            int start=0,end=n;
+            while(start<end){
+                swap(matrix[i][start++],matrix[i][end--]);
+            }
+        }
+        
+    }
+    void rotate(vector<vector<int>>& matrix) {
+      int n=matrix[0].size()-1;
+      //every element at i,j should be located at j,(n-i)
+        
+     //Transpose+rotate
+     transpose(matrix,n);
+      // Rotatehor
+      rotatehor(matrix,n);   
+        
+    }
+};
