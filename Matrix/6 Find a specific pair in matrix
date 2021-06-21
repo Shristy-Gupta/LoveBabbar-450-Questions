@@ -1,0 +1,69 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+#include<climits>
+using namespace std;
+int findMaxValuebruteforce(int mat[][5], int n){
+    //O(n4)
+    int ans=INT_MIN;
+    for(int a=0;a<n-1;a++){
+        for(int b=0;b<n-1;b++){
+            for(int d=a+1;d<n;d++){
+                for(int e=b+1;e<n;e++){
+                    if(ans<(mat[d][e]-mat[a][b])){
+                        ans=mat[d][e]-mat[a][b];
+                    }
+                }
+            }
+        }
+    }
+    return ans;
+}
+
+int findMaxValueoptimized(int mat[][5], int n){
+    int ans=INT_MIN;
+    //DP // The function returns maximum value A(c,d) - A(a,b) over all choices of indexes such that both c > a and d > b.
+    int maxArr[n][n];
+    // last element of maxArr will be same's as of the input matrix
+    maxArr[n-1][n-1]=mat[n-1][n-1];
+    //preprocess the last row
+    int maxval=mat[n-1][n-1];
+    for(int j=n-2;j>=0;j--){
+        if(maxval<mat[n-1][j]){
+            maxval=mat[n-1][j];
+        }
+        maxArr[n-1][j]=maxval;
+    }
+    maxval=mat[n-1][n-1];
+    //preprocess the last col
+     maxval=mat[n-1][n-1];
+    for(int i=n-2;i>=0;i--){
+        if(maxval<mat[i][n-1]){
+            maxval=mat[i][n-1];
+        }
+        maxArr[i][n-1]=maxval;
+    }
+    for(int a=n-2;a>=0;a--){
+        for(int b=n-2;b>=0;b--){
+            if(maxArr[a+1][b+1]-mat[a][b]>ans){
+                ans=maxArr[a+1][b+1]-mat[a][b];
+            }
+            maxArr[a][b]=max(mat[a][b],max(maxArr[a+1][b],maxArr[a][b+1]));
+        }
+    }
+    return ans;
+}
+int main() {
+    int mat[5][5] = {
+                { 1, 2, -1, -4, -20 },
+                { -8, -3, 4, 2, 1 },
+                { 3, 8, 6, 1, 3 },
+                { -4, -1, 1, 7, -6 },
+                { 0, -4, 10, -5, 1 }
+            };
+    cout << "Maximum Value is "
+        << findMaxValuebruteforce(mat,5)<<endl;
+    cout << "Optimized Maximum Value is "
+        << findMaxValueoptimized(mat,5)<<endl;    
+
+    return 0;
+}
