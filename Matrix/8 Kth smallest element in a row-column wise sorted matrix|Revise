@@ -1,0 +1,45 @@
+class Solution {
+public:
+    //https://www.youtube.com/watch?v=dpsp1hP6P-U
+ 
+    int counter(vector<vector<int>>& matrix,int row, int col, int k,int mid){
+        int count=0;
+        for(int i=0;i<row;i++){
+           for(int j=col-1;j>=0;j--){
+               if(matrix[i][j]<=mid){
+                   count+=j+1;
+                   break;
+               }
+           }
+        }
+        return count;
+    }
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        
+       int row=matrix.size();
+       int col=matrix[0].size(); 
+      /*
+      Normal m+nlog(m+n) algorithm + O(m+n) space
+      vector<int> sorted
+       for(int i=0;i<row;i++){
+           for(int j=0;j<col;j++){
+              sorted.push_back(matrix[i][j]); 
+           }
+       }
+       sort(sorted.begin(),sorted.end());
+       return sorted[k-1]; 
+       */
+        int low=matrix[0][0], high=matrix[row-1][col-1];
+        while(low<high){
+            int mid=low+(high-low)/2;
+            int count=counter(matrix,row,col,k,mid);
+            if(count<k){
+                low=mid+1;
+            }
+            else{
+                high=mid;
+            }
+        }
+        return low;
+    }
+};
