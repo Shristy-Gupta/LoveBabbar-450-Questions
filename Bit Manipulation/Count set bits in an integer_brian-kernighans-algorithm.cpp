@@ -16,6 +16,16 @@ int countSetBits(int n)
  
     return count;
 }
+int setBits(int N) {
+        //Brian Kernighan's Algorithm
+       unsigned int count1=0;
+       while(N){
+          int rsbm= N & -N; 
+          N = N-rsbm;
+          count1++;
+       }
+       return count1;
+    }
  
 int main()
 {
