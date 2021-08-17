@@ -31,3 +31,77 @@ struct Node* sortAKSortedDLL(struct Node* head, int k)
 	}
 	return head;
 }
+
+
+/////////////////////////////////////////////////   HEAP ///////////////////////////////////////////
+// 'compare' function used to build up the
+// priority queue
+struct compare {
+	bool operator()(struct Node* p1, struct Node* p2)
+	{
+		return p1->data > p2->data;
+	}
+};
+// function to sort a k sorted doubly linked list
+struct Node* sortAKSortedDLL(struct Node* head, int k)
+{
+	// if list is empty
+	if (head == NULL)
+		return head;
+
+	// priority_queue 'pq' implemented as min heap with the
+	// help of 'compare' function
+	priority_queue<Node*, vector<Node*>, compare> pq;
+
+	struct Node* newHead = NULL, *last;
+
+	// Create a Min Heap of first (k+1) elements from
+	// input doubly linked list
+	
+	for (int i = 0; head != NULL && i <= 2*k+1; i++) {
+		// push the node on to 'pq'
+		pq.push(head);
+
+		// move to the next node
+		head = head->next;
+	}
+
+	// loop till there are elements in 'pq'
+	while (!pq.empty()) {
+
+		// place root or top of 'pq' at the end of the
+		// result sorted list so far having the first node
+		// pointed to by 'newHead'
+		// and adjust the required links
+		if (newHead == NULL) {
+			newHead = pq.top();
+			newHead->prev = NULL;
+
+			// 'last' points to the last node
+			// of the result sorted list so far
+			last = newHead;
+		}
+else {
+			last->next = pq.top();
+			pq.top()->prev = last;
+			last = pq.top();
+		}
+
+		// remove element from 'pq'
+		pq.pop();
+
+		// if there are more nodes left in the input list
+		if (head != NULL) {
+			// push the node on to 'pq'
+			pq.push(head);
+
+			// move to the next node
+			head = head->next;
+		}
+	}
+		// making 'next' of last node point to NULL
+	last->next = NULL;
+
+	// new head of the required sorted DLL
+	return newHead;
+}
